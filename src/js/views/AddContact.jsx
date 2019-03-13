@@ -21,8 +21,6 @@ export default class AddContact extends React.Component {
 		onSubmitFunction = e => {
 			e.preventDefault();
 			
-			//console.log(e.target.emailInput.value);
-			//query select all values and update with variable information
 		let name = e.target.nameInput.value;
 			if (name === ""){
 				e.target.nameInput.style.background="red";
@@ -60,7 +58,7 @@ export default class AddContact extends React.Component {
 				let context = this.props.match.params.theid;
 				let contact = store.contact[parseInt(context)];
 				if (contact === undefined){
-					contact= {};
+					context= {};
 				}
 				//console.log(contact); 
 				
@@ -77,19 +75,19 @@ export default class AddContact extends React.Component {
 							}}>
 									<div className="form-group">
 										<label>Full Name</label>
-										<input type="text" id="nameInput" className="form-control" placeholder= {contact.fullName || ""}   value= {this.state.contact.fullName}   onChange={(e)=>this.setState({fullName: e.target.value})} />
+										<input type="text" id="nameInput" className="form-control" placeholder= {context.fullName || ""}   value= {this.state.contact.fullName}   onChange={(e)=>this.setState({fullName: e.target.value})} />
 									</div>
 									<div className="form-group">
 										<label>Email</label>
-										<input type="email" id="emailInput" className="form-control" placeholder= {contact.email || ""} value={this.state.contact.email}  onChange={(e)=>this.setState({email: e.target.value})} />
+										<input type="email" id="emailInput" className="form-control" placeholder= {context.email || ""} value={this.state.contact.email}  onChange={(e)=>this.setState({email: e.target.value})} />
 									</div>
 									<div className="form-group">
 										<label>Phone</label>
-										<input type="phone" id="phoneInput" className="form-control" placeholder= {contact.phone || ""} value={this.state.contact.phone}  onChange={(e)=>this.setState({phone: e.target.value})} />
+										<input type="phone" id="phoneInput" className="form-control" placeholder= {context.phone || ""} value={this.state.contact.phone}  onChange={(e)=>this.setState({phone: e.target.value})} />
 									</div>
 									<div className="form-group">
 										<label>Address</label>
-										<input type="text" id="addressInput" className="form-control" placeholder= {contact.address || ""} value={this.state.contact.address}  onChange={(e)=>this.setState({address: e.target.value})} />
+										<input type="text" id="addressInput" className="form-control" placeholder= {context.address || ""} value={this.state.contact.address}  onChange={(e)=>this.setState({address: e.target.value})} />
 									</div>
 									<button type="submit" id="submitBtn" className="btn btn-primary form-control">save</button>
 									<Link className="mt-3 w-100 text-center" to="/">or get back to contacts</Link>

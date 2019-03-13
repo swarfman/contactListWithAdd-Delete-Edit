@@ -34,10 +34,10 @@ export default class Contacts extends React.Component {
 							<ContactCard
 								key ={index}
 								address ={elem.address}
-								fullName ={elem.fullName}
+								fullName ={elem.full_name}
 								phone ={elem.phone}
 								email ={elem.email}
-								index = {index}
+								index = {elem.id}
 								onDelete={() => this.setState({ showModal: true})} 
 							/>
 						);

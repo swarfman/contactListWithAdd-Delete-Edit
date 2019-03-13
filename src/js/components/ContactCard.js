@@ -22,7 +22,7 @@ getIndex = () => {
 		return (
 			<li className="list-group-item">
 				<Context.Consumer>
-					{({ actions }) => {
+					{({ store, actions }) => {
 					return (
 						<div className="row w-100">
 							<div className="col-12 col-sm-6 col-md-3 px-0">

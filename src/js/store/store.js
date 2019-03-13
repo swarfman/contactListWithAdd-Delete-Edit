@@ -1,18 +1,7 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			contact: [{
-				fullName: "Mike L",
-				address: "123 blah blah Lane",
-				phone: 8005678942,
-				email: "abc@gmail.com"
-			},
-			{
-				fullName: "Tom L",
-				address: "123 blah Tom Lane",
-				phone: 8005678942,
-				email: "abc@gmail.com"
-			}]//Your data structures, A.K.A Entities
+			contact: []//Your data structures, A.K.A Entities
 		},
 		actions: {
 			addContact: e => {
@@ -23,32 +12,96 @@ const getState = ({ getStore, setStore }) => {
 			let email = e.target.emailInput.value;
 				
 			let	tempObject = 
-				{fullName: name , 
+				{full_name: name , 
+				agenda_slug: "alejo",
 				address: address , 
 				phone: phone , 
 				email: email};
-				
+			
+			
+			fetch(
+			"https://assets.breatheco.de/apis/fake/contact/",{
+			
+			method: 'PUT',
+			body: JSON.stringify(tempObject),
+			headers:{
+				'Content-Type': 'application/json'
+			}})
+			
+			.then(res => {
+				return res.text();
+				})
+			.then(response => {
+				//console.log("Success:", typeof response);
+				//	console.log(response);
 				let newValues =	getStore();
-				console.log(newValues);
-				newValues.contact.push(tempObject);
-				setStore({newValues});
-			//	console.log(getState);
 				//console.log(newValues);
-			},
+				newValues.contact.push(tempObject);
+				setStore({contact: newValues});
+			})
+
+			.catch(error => console.error("Error:", error));
+			
+			
+			},	
 			
 			deleteContact: e => {
-			//	e.addEventListener();
-				let deleteArrayValue = getStore();
-				deleteArrayValue.contact.splice(e, 1);
-				setStore({deleteArrayValue});
-				console.log(getState);
+				//console.log(getState);
+			fetch(
+			"https://assets.breatheco.de/apis/fake/contact/"+e,{
+			
+			method: 'DELETE'
 				
+			})
+			
+			.then(res => {
+				return res.text();
+				})
+			.then(response => {
+				let deleteArrayValue = getStore();
+				let other = deleteArrayValue.contact.filter((shower) => {
+					return shower.id !== e;
+						
+					});
+				setStore({contact: other});
+				
+				
+			})
+
+			.catch(error => console.error("Error:", error));
+			
+			},
+			
+			getDatData: () => {
+			fetch(
+			"https://assets.breatheco.de/apis/fake/contact/agenda/alejo"
+			)
+			.then(res => res.json())
+			.then(response => {
+				//console.log("Success:", typeof response);
+				//	console.log(response);
+				if (typeof response === typeof []) {
+					setStore({ contact: response });
+					//console.log(this.state);
+				} else {
+					setStore({ contact: [] });
+				}
+			})
+
+			.catch(error => console.error("Error:", error));
 			}
+	}};
+			
+			
+		
+			
+			
+			};
 			//(Arrow) Functions that update the Store
             // Remember to use the scope: scope.state.store & scope.setState()
-		}
-	};
-};
+
+
+
 
 export default getState;
 
