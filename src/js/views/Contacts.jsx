@@ -1,14 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { Context } from "../store/appContext.jsx";
 import ContactCard from '../components/ContactCard';
 import Modal from '../components/Modal';
 
 export default class Contacts extends React.Component {
-	constructor(){
+		constructor(){
 		super();
 		this.state = {
-			showModal: false  
+			contact: [{
+				name: "Mike",
+				address: "123 BirdBerry Lane",
+				phone: "8005678942",
+				email: "abc@gmail.com"
+			}]
+			// initialize your state
 		};
 	}
 
@@ -21,10 +27,25 @@ export default class Contacts extends React.Component {
 				</p>
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-						<ContactCard onDelete={() => this.setState({ showModal: true})} />
-						<ContactCard />
-						<ContactCard />
-						<ContactCard />
+						<Context.Consumer>
+							{({ store }) => {
+						return	store.contact.map((elem, index) => {
+						return (
+							<ContactCard
+								key ={index}
+								address ={elem.address}
+								fullName ={elem.fullName}
+								phone ={elem.phone}
+								email ={elem.email}
+								index = {index}
+								onDelete={() => this.setState({ showModal: true})} 
+							/>
+						);
+							});
+								
+							}
+						}
+						</Context.Consumer>
 					</ul>
 				</div>
 			</div>
