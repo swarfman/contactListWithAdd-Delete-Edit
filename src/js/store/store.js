@@ -12,10 +12,10 @@ const getState = ({ getStore, setStore }) => {
 			let email = e.target.emailInput.value;
 				
 			let	tempObject = 
-				{full_name: name , 
-				agenda_slug: "alejo",
-				address: address , 
-				phone: phone , 
+				{full_name: name,
+				address: address, 
+				phone: phone,
+				groups: "" ,
 				email: email};
 			
 			
@@ -74,14 +74,14 @@ const getState = ({ getStore, setStore }) => {
 			
 			getDatData: () => {
 			fetch(
-			"https://assets.breatheco.de/apis/fake/contact/agenda/alejo"
+			"http://contact-list-database-flask-api-swarfman.c9users.io:8080/"
 			)
 			.then(res => res.json())
 			.then(response => {
 				//console.log("Success:", typeof response);
 				//	console.log(response);
-				if (typeof response === typeof []) {
-					setStore({ contact: response });
+				if (typeof response.data === typeof []) {
+					setStore({ contact: response.data });
 					//console.log(this.state);
 				} else {
 					setStore({ contact: [] });
