@@ -20,16 +20,16 @@ const getState = ({ getStore, setStore }) => {
 			
 			
 			fetch(
-			"https://assets.breatheco.de/apis/fake/contact/",{
+			"http://contact-list-database-flask-api-swarfman.c9users.io:8080/addcontact",{
 			
-			method: 'PUT',
+			method: 'POST',
 			body: JSON.stringify(tempObject),
 			headers:{
 				'Content-Type': 'application/json'
 			}})
 			
 			.then(res => {
-				return res.text();
+				return res.json();
 				})
 			.then(response => {
 				//console.log("Success:", typeof response);
@@ -48,7 +48,7 @@ const getState = ({ getStore, setStore }) => {
 			deleteContact: e => {
 				//console.log(getState);
 			fetch(
-			"https://assets.breatheco.de/apis/fake/contact/"+e,{
+			"http://contact-list-database-flask-api-swarfman.c9users.io:8080/contacts/"+e,{
 			
 			method: 'DELETE'
 				
